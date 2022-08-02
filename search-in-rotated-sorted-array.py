@@ -4,7 +4,6 @@ Problem statement https://leetcode.com/problems/search-in-rotated-sorted-array/
 
 class Solution:
     def binary_search(self,lo, hi, condition, default=0):
-        mid = 0
         while lo <= hi:
             mid = (lo + hi) // 2
 
@@ -26,7 +25,7 @@ class Solution:
                 return "left"
             else :
                 return "right"
-
+        # count how many rotations has made
         rotations =  self.binary_search(0, len(nums)-1, count_rotation_condition)
         nums = nums[rotations:]+nums[:rotations]
         def normal_search_condition(mid, hi, lo):
@@ -36,8 +35,10 @@ class Solution:
                 return "left"
             else :
                 return "right"
-
+        # perform a standard binary search to find relative position
         position =  self.binary_search(0, len(nums)-1, normal_search_condition, default=-1)
+        
+        # calculate position based on rotated list
         if position == -1:
             resultat = -1
         elif rotations + position < len(nums):
